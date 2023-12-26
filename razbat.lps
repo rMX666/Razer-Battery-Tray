@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Release"/>
+    <Units>
+      <Unit>
+        <Filename Value="razbat.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="5"/>
+        <CursorPos X="28" Y="20"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="usettings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fSettings"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uSettings"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="39"/>
+        <CursorPos Y="45"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="urazerutil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uRazerUtil"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="208"/>
+        <CursorPos X="24" Y="226"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\lcl\extctrls.pp"/>
+        <UnitName Value="ExtCtrls"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1389"/>
+        <CursorPos X="20" Y="1390"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\lcl\include\customtrayicon.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="304"/>
+        <CursorPos X="3" Y="316"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\lcl\graphics.pp"/>
+        <UnitName Value="Graphics"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="369"/>
+        <CursorPos X="3" Y="287"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="uconfig.pas"/>
+        <UnitName Value="uConfig"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="18" Y="49"/>
+        <UsageCount Value="20"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\packages\fcl-json\src\jsonconf.pp"/>
+        <UnitName Value="jsonConf"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="570"/>
+        <CursorPos X="3" Y="797"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\sysutilh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="313"/>
+        <CursorPos X="19" Y="330"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1944"/>
+        <CursorPos X="16" Y="1960"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\packages\fcl-json\src\jsonparser.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="222"/>
+        <CursorPos X="3" Y="226"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\packages\fcl-json\src\jsonreader.pp"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="46"/>
+        <CursorPos X="66" Y="65"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\packages\fcl-json\src\jsonscanner.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="37"/>
+        <CursorPos X="3" Y="55"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <UnitName Value="LibUsbOop"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="1505"/>
+        <CursorPos Y="1524"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="pas-libusb\src\libusb.pas"/>
+        <UnitName Value="LibUsb"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="330"/>
+        <CursorPos X="3" Y="335"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\packages\fcl-base\src\contnrs.pp"/>
+        <UnitName Value="Contnrs"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="633"/>
+        <CursorPos X="3" Y="643"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\rtl\inc\objpash.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="191"/>
+        <CursorPos X="23" Y="206"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\lazarus\fpc\3.2.2\source\rtl\inc\objpas.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="210"/>
+        <CursorPos X="9" Y="325"/>
+        <UsageCount Value="10"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1186" Column="27" TopLine="1158"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1232" Column="10" TopLine="1204"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1267" Column="27" TopLine="1239"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1457" Column="18" TopLine="1429"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1464" Column="18" TopLine="1436"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1523" Column="10" TopLine="1495"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1525" Column="20" TopLine="1497"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1531" Column="20" TopLine="1503"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1537" Column="23" TopLine="1509"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1540" Column="18" TopLine="1512"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1544" Column="23" TopLine="1516"/>
+      </Position>
+      <Position>
+        <Filename Value="pas-libusb\src\libusboop.pas"/>
+        <Caret Line="1547" Column="18" TopLine="1519"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="192" Column="22" TopLine="173"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="200" Column="13" TopLine="180"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="10" Column="12" TopLine="181"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="48" Column="15" TopLine="31"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="250" Column="3" TopLine="222"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="45" Column="15" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="226" Column="15" TopLine="211"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="43" Column="16" TopLine="28"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="198" Column="28" TopLine="193"/>
+      </Position>
+      <Position>
+        <Filename Value="urazerutil.pas"/>
+        <Caret Line="43" Column="29" TopLine="26"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="57" Column="28" TopLine="43"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="19" Column="17"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="143" Column="15" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="145" Column="20" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="157" Column="17" TopLine="130"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="194" TopLine="186"/>
+      </Position>
+      <Position>
+        <Filename Value="usettings.pas"/>
+        <Caret Line="201" TopLine="193"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="Self"/>
+      </Item>
+    </Watches>
+  </Debugging>
+</CONFIG>

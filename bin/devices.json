@@ -1,0 +1,7 @@
+[
+  {"VID": "1532", "PID": "007a", "TransactionID": "1f", "name": "Razer Viper Ultimate Wired"},
+  {"VID": "1532", "PID": "007b", "TransactionID": "1f", "name": "Razer Viper Ultimate Wireless"},
+  {"VID": "1532", "PID": "00b6", "TransactionID": "1f", "name": "Razer Deathadder v3 Pro Wired"},
+  {"VID": "1532", "PID": "00b7", "TransactionID": "1f", "name": "Razer Deathadder v3 Pro Wireless"},
+  {"VID": "1532", "PID": "007e", "TransactionID": "ff", "name": "Razer Mouse Dock"}
+]
