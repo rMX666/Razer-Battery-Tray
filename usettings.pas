@@ -36,7 +36,7 @@ type
     procedure TrayIconMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   private
     FConfig: TConfig;
-    procedure PaintTrayIcon(const Value: Integer);
+    procedure PaintTrayIcon(const Value: Integer; const IsCharging: Boolean);
     procedure DevicesLoaded(Sender: TObject);
     function GetDeviceCaption(const Device: TRazerDevice): String;
   public
@@ -52,7 +52,7 @@ implementation
 
 { TfSettings }
 
-procedure TfSettings.PaintTrayIcon(const Value: Integer);
+procedure TfSettings.PaintTrayIcon(const Value: Integer; const IsCharging: Boolean);
 
   function GetColor: TColor;
   begin
@@ -67,41 +67,42 @@ procedure TfSettings.PaintTrayIcon(const Value: Integer);
       Result := clGreen;
   end;
 
+const
+  SIZE      = 32;
+  FONT_SIZE = 20;
 var
   B: TBitmap;
 begin
   // Repaint icon and stuff
   try
     B := TBitmap.Create;
-    B.SetSize(32, 32);
-    B.Transparent := True;
-    B.TransparentColor := clBlack;
+    B.SetSize(SIZE, SIZE);
     with B.Canvas do
       begin
-        AntialiasingMode := amOn;
-        Brush.Color := clBlack;
-        FillRect(0, 0, 32, 32);
+        AntialiasingMode := amOff;
+        if IsCharging then
+          Brush.Color := $003000 // Dark green
+        else
+          Brush.Color := clGray; // For transparency
+        FillRect(0, 0, SIZE, SIZE);
+
         if Value = 0 then
           begin
             Pen.Color := clRed;
-            Line(0, 0, 32, 32);
-            Line(0, 32, 32, 0);
+            Line(0, 0, SIZE, SIZE);
+            Line(0, SIZE, SIZE, 0);
           end
         else
           begin
-            Font.Size := 20;
+            Font.Size := FONT_SIZE;
             Font.Color := GetColor;
             Font.Name := 'Courier New';
             Font.Bold := True;
             TextOut(0, 0, Format('%0.2d', [Value]));
           end;
       end;
-    with TrayIcon.Icon do
-      begin
-        TransparentColor := clBlack;
-        Transparent := True;
-        Assign(B);
-      end;
+    B.Mask(clGray); // Make transparent mask
+    TrayIcon.Icon.Assign(B);
   finally
     FreeAndNil(B);
   end;
@@ -197,14 +198,14 @@ begin
   if FConfig.Count = 0 then
     begin
       TrayIcon.Hint := 'Not connected';
-      PaintTrayIcon(0);
+      PaintTrayIcon(0, False);
       FConfig.Refresh;
     end
   else
     try
       Device := FConfig.SupportedDevices[cmDeviceList.ItemIndex];
       TrayIcon.Hint := GetDeviceCaption(Device);
-      PaintTrayIcon(Device.ChargeLevel);
+      PaintTrayIcon(Device.ChargeLevel, Device.IsCharging);
     except
       on E: ELibUsb do
         FConfig.Refresh;
