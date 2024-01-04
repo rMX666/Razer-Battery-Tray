@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  StdCtrls, uRazerUtil,
+  StdCtrls,
+  uRazerUtil,
   LibUsbOop;
 
 type
@@ -16,8 +17,22 @@ type
   TfSettings = class(TForm)
     btnExit: TButton;
     btnRefresh: TButton;
+    cbIconTransparent: TCheckBox;
     cmDeviceList: TComboBox;
+    cbIconBgNoCharge: TColorButton;
+    cbIconBgCharge: TColorButton;
+    cbIconRed: TColorButton;
+    cbIconOrange: TColorButton;
+    cbIconYellow: TColorButton;
+    cbIconGreen: TColorButton;
+    GroupBox1: TGroupBox;
     Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     miExit: TMenuItem;
     Separator1: TMenuItem;
     miSettings: TMenuItem;
@@ -32,6 +47,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
     procedure ExitClick(Sender: TObject);
+    procedure SetIconColor(Sender: TObject);
+    procedure SetIconTransparent(Sender: TObject);
     procedure ShowSettingsForm(Sender: TObject);
     procedure TrayIconMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   private
@@ -39,6 +56,7 @@ type
     procedure PaintTrayIcon(const Value: Integer; const IsCharging: Boolean);
     procedure DevicesLoaded(Sender: TObject);
     function GetDeviceCaption(const Device: TRazerDevice): String;
+    procedure InitializeSettings;
   public
 
   end;
@@ -48,6 +66,9 @@ var
 
 implementation
 
+uses
+  uUtil;
+
 {$R *.lfm}
 
 { TfSettings }
@@ -56,20 +77,21 @@ procedure TfSettings.PaintTrayIcon(const Value: Integer; const IsCharging: Boole
 
   function GetColor: TColor;
   begin
-    Result := clBlack;
+    Result := clNone;
+
     if Value < 25 then
-      Result := clRed
+      Result := AppSettings.IconColors[ciRed]
     else if Value < 50 then
-      Result := $FF6600 // Orange
+      Result := AppSettings.IconColors[ciOrange]
     else if Value < 75 then
-      Result := clYellow
+      Result := AppSettings.IconColors[ciYellow]
     else
-      Result := clGreen;
+      Result := AppSettings.IconColors[ciGreen];
   end;
 
 const
-  SIZE      = 32;
-  FONT_SIZE = 20;
+  SIZE      = 16;
+  FONT_SIZE = 10;
 var
   B: TBitmap;
 begin
@@ -81,9 +103,9 @@ begin
       begin
         AntialiasingMode := amOff;
         if IsCharging then
-          Brush.Color := $003000 // Dark green
+          Brush.Color := AppSettings.IconColors[ciBgCharge]
         else
-          Brush.Color := clGray; // For transparency
+          Brush.Color := AppSettings.IconColors[ciBgNoCharge];
         FillRect(0, 0, SIZE, SIZE);
 
         if Value = 0 then
@@ -96,12 +118,13 @@ begin
           begin
             Font.Size := FONT_SIZE;
             Font.Color := GetColor;
-            Font.Name := 'Courier New';
+            Font.Name := 'FixedSys';
             Font.Bold := True;
-            TextOut(0, 0, Format('%0.2d', [Value]));
+            TextOut(-1, 1, Format('%0.2d', [Value]));
           end;
       end;
-    B.Mask(clGray); // Make transparent mask
+    if AppSettings.IconTransparent then
+      B.Mask(AppSettings.IconColors[ciBgNoCharge]);
     TrayIcon.Icon.Assign(B);
   finally
     FreeAndNil(B);
@@ -130,6 +153,16 @@ end;
 procedure TfSettings.ExitClick(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TfSettings.SetIconColor(Sender: TObject);
+begin
+  AppSettings.IconColors[TColorIndex(TColorButton(Sender).Tag)] := TColorButton(Sender).ButtonColor;
+end;
+
+procedure TfSettings.SetIconTransparent(Sender: TObject);
+begin
+  AppSettings.IconTransparent := TCheckBox(Sender).Checked;
 end;
 
 procedure TfSettings.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -177,11 +210,26 @@ begin
     end;
 end;
 
+procedure TfSettings.InitializeSettings;
+begin
+  cbIconBgCharge.ButtonColor   := AppSettings.IconColors[ciBgCharge];
+  cbIconBgNoCharge.ButtonColor := AppSettings.IconColors[ciBgNoCharge];
+  cbIconRed.ButtonColor        := AppSettings.IconColors[ciRed];
+  cbIconOrange.ButtonColor     := AppSettings.IconColors[ciOrange];
+  cbIconYellow.ButtonColor     := AppSettings.IconColors[ciYellow];
+  cbIconGreen.ButtonColor      := AppSettings.IconColors[ciGreen];
+
+  cbIconTransparent.Checked := AppSettings.IconTransparent;
+end;
+
 procedure TfSettings.FormCreate(Sender: TObject);
 begin
   FConfig := TConfig.Create;
   FConfig.OnLoad := @DevicesLoaded;
   FConfig.Refresh;
+
+  InitializeSettings;
+
   BatteryTimer.Enabled := True;
   BatteryTimerTimer(Sender);
 end;

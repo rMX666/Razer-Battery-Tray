@@ -10949,6 +10949,138 @@ object fSettings: TfSettings
     ReadOnly = True
     TabOrder = 2
   end
+  object GroupBox1: TGroupBox
+    Left = 16
+    Height = 200
+    Top = 48
+    Width = 232
+    Caption = 'Icon colors'
+    ClientHeight = 180
+    ClientWidth = 228
+    TabOrder = 3
+    object Label2: TLabel
+      Left = 8
+      Height = 15
+      Top = 8
+      Width = 64
+      Caption = 'Background'
+    end
+    object cbIconBgNoCharge: TColorButton
+      Tag = 5
+      Left = 128
+      Height = 16
+      Top = 7
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object Label3: TLabel
+      Left = 8
+      Height = 15
+      Top = 33
+      Width = 114
+      Caption = 'Background charging'
+    end
+    object cbIconBgCharge: TColorButton
+      Tag = 4
+      Left = 128
+      Height = 16
+      Top = 32
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object Label4: TLabel
+      Left = 8
+      Height = 15
+      Top = 57
+      Width = 57
+      Caption = 'Text < 25%'
+    end
+    object cbIconRed: TColorButton
+      Left = 128
+      Height = 16
+      Top = 56
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object cbIconOrange: TColorButton
+      Tag = 1
+      Left = 128
+      Height = 16
+      Top = 80
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object Label5: TLabel
+      Left = 8
+      Height = 15
+      Top = 81
+      Width = 57
+      Caption = 'Text < 50%'
+    end
+    object cbIconYellow: TColorButton
+      Tag = 2
+      Left = 128
+      Height = 16
+      Top = 104
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object Label6: TLabel
+      Left = 8
+      Height = 15
+      Top = 105
+      Width = 57
+      Caption = 'Text < 75%'
+    end
+    object Label7: TLabel
+      Left = 8
+      Height = 15
+      Top = 129
+      Width = 71
+      Caption = 'Text <= 100%'
+    end
+    object cbIconGreen: TColorButton
+      Tag = 3
+      Left = 128
+      Height = 16
+      Top = 128
+      Width = 16
+      BorderWidth = 0
+      ButtonColorSize = 16
+      ButtonColor = clBlack
+      Flat = True
+      OnColorChanged = SetIconColor
+    end
+    object cbIconTransparent: TCheckBox
+      Left = 8
+      Height = 19
+      Top = 152
+      Width = 108
+      Caption = 'Use transparency'
+      TabOrder = 0
+      OnChange = SetIconTransparent
+    end
+  end
   object TrayIcon: TTrayIcon
     PopUpMenu = pmTray
     Hint = 'Razbat'

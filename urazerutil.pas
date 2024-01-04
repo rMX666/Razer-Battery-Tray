@@ -53,7 +53,8 @@ type
 implementation
 
 uses
-  StrUtils, jsonparser;
+  StrUtils, jsonparser,
+  uUtil;
 
 type
   PRazerReport = ^TRazerReport;
@@ -216,7 +217,7 @@ var
   I: Integer;
 begin
   try
-    ConfigFile := TFileStream.Create('devices.json', fmOpenRead or fmShareDenyWrite);
+    ConfigFile := TFileStream.Create(AppDirectory + 'devices.json', fmOpenRead or fmShareDenyWrite);
     if ConfigFile.Size <= 0 then
       Exit;
 

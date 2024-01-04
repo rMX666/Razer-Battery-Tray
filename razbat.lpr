@@ -10,7 +10,7 @@ uses
   athreads,
   {$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uSettings, uRazerUtil
+  Forms, uSettings, uRazerUtil, uUtil
   { you can add units after this };
 
 {$R *.res}
