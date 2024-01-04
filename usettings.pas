@@ -99,7 +99,7 @@ var
   Size, FontSize: Integer;
 begin
   Size := GetSystemMetrics(SM_CXSMICON);
-  FontSize := Trunc(Size * 10 / 16);
+  FontSize := 12;
   // Repaint icon and stuff
   try
     B := Graphics.TBitmap.Create;
@@ -123,9 +123,10 @@ begin
           begin
             Font.Size := FontSize;
             Font.Color := GetColor;
-            Font.Name := 'FixedSys';
-            Font.Bold := True;
-            TextOut(-1, 1, Format('%0.2d', [Value]));
+            Font.Name := 'Courier';
+            Font.Bold := False;
+            Font.Quality := fqNonAntialiased;
+            TextOut(-1, 0, Format('%0.2d', [Value]));
           end;
       end;
     if AppSettings.IconTransparent then
