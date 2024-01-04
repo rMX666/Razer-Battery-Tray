@@ -18,8 +18,8 @@ uses
 begin
   RequireDerivedFormResource := True;
   Application.Name := 'Razbat';
-  Application.Title := 'Razbat';
-  Application.Scaled := True;
+  Application.Title:='Razbat';
+  Application.Scaled:=True;
   Application.Initialize;
   Application.ShowMainForm := False;
   Application.CreateForm(TfSettings, fSettings);

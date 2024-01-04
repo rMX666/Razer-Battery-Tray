@@ -14,6 +14,15 @@
       </XPManifest>
       <Icon Value="0"/>
     </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <MinorVersionNr Value="2"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="6"/>
+      <Attributes pvaPreRelease="True"/>
+      <StringTable FileDescription="Razer device battery tray icon" InternalName="Razbat" OriginalFilename="razbat.exe" ProductName="Razbat"/>
+    </VersionInfo>
     <BuildModes>
       <Item Name="Default" Default="True"/>
       <Item Name="Debug">
