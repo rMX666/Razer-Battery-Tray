@@ -67,6 +67,7 @@ var
 implementation
 
 uses
+  Windows,
   uUtil;
 
 {$R *.lfm}
@@ -89,16 +90,16 @@ procedure TfSettings.PaintTrayIcon(const Value: Integer; const IsCharging: Boole
       Result := AppSettings.IconColors[ciGreen];
   end;
 
-const
-  SIZE      = 16;
-  FONT_SIZE = 10;
 var
-  B: TBitmap;
+  B: Graphics.TBitmap;
+  Size, FontSize: Integer;
 begin
+  Size := GetSystemMetrics(SM_CXSMICON);
+  FontSize := Trunc(Size * 10 / 16);
   // Repaint icon and stuff
   try
-    B := TBitmap.Create;
-    B.SetSize(SIZE, SIZE);
+    B := Graphics.TBitmap.Create;
+    B.SetSize(Size, Size);
     with B.Canvas do
       begin
         AntialiasingMode := amOff;
@@ -106,17 +107,17 @@ begin
           Brush.Color := AppSettings.IconColors[ciBgCharge]
         else
           Brush.Color := AppSettings.IconColors[ciBgNoCharge];
-        FillRect(0, 0, SIZE, SIZE);
+        FillRect(0, 0, Size, Size);
 
         if Value = 0 then
           begin
             Pen.Color := clRed;
-            Line(0, 0, SIZE, SIZE);
-            Line(0, SIZE, SIZE, 0);
+            Line(0, 0, Size, Size);
+            Line(0, Size, Size, 0);
           end
         else
           begin
-            Font.Size := FONT_SIZE;
+            Font.Size := FontSize;
             Font.Color := GetColor;
             Font.Name := 'FixedSys';
             Font.Bold := True;
