@@ -17,7 +17,9 @@ uses
 
 begin
   RequireDerivedFormResource := True;
-  Application.Scaled:=True;
+  Application.Name := 'Razbat';
+  Application.Title := 'Razbat';
+  Application.Scaled := True;
   Application.Initialize;
   Application.ShowMainForm := False;
   Application.CreateForm(TfSettings, fSettings);

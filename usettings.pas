@@ -18,6 +18,7 @@ type
     btnExit: TButton;
     btnRefresh: TButton;
     cbIconTransparent: TCheckBox;
+    cbAutorun: TCheckBox;
     cmDeviceList: TComboBox;
     cbIconBgNoCharge: TColorButton;
     cbIconBgCharge: TColorButton;
@@ -41,6 +42,7 @@ type
     RefreshListTimer: TTimer;
     TrayIcon: TTrayIcon;
     procedure BatteryTimerTimer(Sender: TObject);
+    procedure cbAutorunChange(Sender: TObject);
     procedure RefreshDeviceList(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -50,13 +52,15 @@ type
     procedure SetIconColor(Sender: TObject);
     procedure SetIconTransparent(Sender: TObject);
     procedure ShowSettingsForm(Sender: TObject);
-    procedure TrayIconMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+  private
+    type TAutorunAction = ( aaAdd, aaRemove, aaCheck );
   private
     FConfig: TConfig;
     procedure PaintTrayIcon(const Value: Integer; const IsCharging: Boolean);
     procedure DevicesLoaded(Sender: TObject);
     function GetDeviceCaption(const Device: TRazerDevice): String;
     procedure InitializeSettings;
+    function DoAutorun(const AutorunAction: TAutorunAction): Boolean;
   public
 
   end;
@@ -67,7 +71,7 @@ var
 implementation
 
 uses
-  Windows,
+  Windows, Registry,
   uUtil;
 
 {$R *.lfm}
@@ -136,13 +140,6 @@ procedure TfSettings.ShowSettingsForm(Sender: TObject);
 begin
   fSettings.Show;
   WindowState := wsNormal;
-end;
-
-procedure TfSettings.TrayIconMouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  if Button = mbRight then
-    pmTray.PopUp(X, Y);
 end;
 
 procedure TfSettings.FormWindowStateChange(Sender: TObject);
@@ -221,6 +218,8 @@ begin
   cbIconGreen.ButtonColor      := AppSettings.IconColors[ciGreen];
 
   cbIconTransparent.Checked := AppSettings.IconTransparent;
+
+  cbAutorun.Checked := DoAutorun(aaCheck);
 end;
 
 procedure TfSettings.FormCreate(Sender: TObject);
@@ -259,6 +258,54 @@ begin
       on E: ELibUsb do
         FConfig.Refresh;
     end;
+end;
+
+function TfSettings.DoAutorun(const AutorunAction: TAutorunAction): Boolean;
+
+  function HandleError(const IsSuccess: Boolean): Boolean;
+  const
+    MESSAGES: array [TAutorunAction] of String =
+      (
+        'Unable to add application to autorun',
+        'Unable to remove application from autorun',
+        'Unable to check application autorun status'
+      );
+  begin
+    Result := not IsSuccess;
+
+    if Result then
+      Application.MessageBox(PChar(MESSAGES[AutorunAction]), 'Error', MB_OK or MB_ICONERROR);
+  end;
+
+begin
+  Result := False;
+
+  with TRegistry.Create do
+    try
+      RootKey := HKEY_CURRENT_USER;
+
+      if HandleError(OpenKey('SOFTWARE\Microsoft\Windows\CurrentVersion\Run\', false)) then
+        Exit;
+
+      case AutorunAction of
+        aaAdd:
+          WriteString(Application.Name, Application.ExeName);
+        aaRemove:
+          HandleError(DeleteValue(Application.Name));
+        aaCheck:
+          Result := ValueExists(Application.Name);
+      end;
+    finally
+      Free;
+    end;
+end;
+
+procedure TfSettings.cbAutorunChange(Sender: TObject);
+begin
+  if TCheckBox(Sender).Checked then
+    DoAutorun(aaAdd)
+  else
+    DoAutorun(aaRemove);
 end;
 
 procedure TfSettings.RefreshDeviceList(Sender: TObject);
