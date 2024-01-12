@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
   StdCtrls,
-  uRazerUtil,
+  uRazerUtil, uLogger,
   LibUsbOop;
 
 type
@@ -19,6 +19,7 @@ type
     btnRefresh: TButton;
     cbIconTransparent: TCheckBox;
     cbAutorun: TCheckBox;
+    cbLogLastCharge: TCheckBox;
     cmDeviceList: TComboBox;
     cbIconBgNoCharge: TColorButton;
     cbIconBgCharge: TColorButton;
@@ -43,6 +44,7 @@ type
     TrayIcon: TTrayIcon;
     procedure BatteryTimerTimer(Sender: TObject);
     procedure cbAutorunChange(Sender: TObject);
+    procedure cbLogLastChargeChange(Sender: TObject);
     procedure RefreshDeviceList(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
@@ -56,6 +58,7 @@ type
     type TAutorunAction = ( aaAdd, aaRemove, aaCheck );
   private
     FConfig: TConfig;
+    FChargeWatcher: TChargeWatcher;
     procedure PaintTrayIcon(const Value: Integer; const IsCharging: Boolean);
     procedure DevicesLoaded(Sender: TObject);
     function GetDeviceCaption(const Device: TRazerDevice): String;
@@ -113,21 +116,28 @@ begin
           Brush.Color := AppSettings.IconColors[ciBgNoCharge];
         FillRect(0, 0, Size, Size);
 
-        if Value = 0 then
-          begin
-            Pen.Color := clRed;
-            Line(0, 0, Size, Size);
-            Line(0, Size, Size, 0);
-          end
-        else
-          begin
-            Font.Size := FontSize;
-            Font.Color := GetColor;
-            Font.Name := 'Courier';
-            Font.Bold := False;
-            Font.Quality := fqNonAntialiased;
-            TextOut(-1, 0, Format('%0.2d', [Value]));
-          end;
+        case Value of
+          0:
+            begin
+              Pen.Color := clRed;
+              Line(0, 0, Size, Size);
+              Line(0, Size, Size, 0);
+            end;
+          100:
+            begin
+              Brush.Color := AppSettings.IconColors[ciGreen];
+              Ellipse(ClipRect);
+            end;
+          else
+            begin
+              Font.Size := FontSize;
+              Font.Color := GetColor;
+              Font.Name := 'Courier';
+              Font.Bold := False;
+              Font.Quality := fqNonAntialiased;
+              TextOut(-1, 0, Format('%0.2d', [Value]));
+            end;
+        end;
       end;
     if AppSettings.IconTransparent then
       B.Mask(AppSettings.IconColors[ciBgNoCharge]);
@@ -202,7 +212,10 @@ begin
         begin
           Result := Format('%s - %0.2d%%', [Name, Charge]);
           if IsCharging then
-            Result := Result + ' (charging)';
+            Result := Result + ' (charging)'
+          else
+            if AppSettings.LastChargeDate <> MinDateTime then
+              Result := Format('%s'#13#10'Last charged %s', [Result, PrettyDateFormat(AppSettings.LastChargeDate)]);
         end
       else
         Result := Name;
@@ -220,6 +233,8 @@ begin
 
   cbIconTransparent.Checked := AppSettings.IconTransparent;
 
+  cbLogLastCharge.Checked := AppSettings.LogLastCharge;
+
   cbAutorun.Checked := DoAutorun(aaCheck);
 end;
 
@@ -231,6 +246,8 @@ begin
 
   InitializeSettings;
 
+  FChargeWatcher := TChargeWatcher.Create;
+
   BatteryTimer.Enabled := True;
   BatteryTimerTimer(Sender);
 end;
@@ -238,6 +255,7 @@ end;
 procedure TfSettings.FormDestroy(Sender: TObject);
 begin
   FConfig.Free;
+  FChargeWatcher.Free;
 end;
 
 procedure TfSettings.BatteryTimerTimer(Sender: TObject);
@@ -255,6 +273,7 @@ begin
       Device := FConfig.SupportedDevices[cmDeviceList.ItemIndex];
       TrayIcon.Hint := GetDeviceCaption(Device);
       PaintTrayIcon(Device.ChargeLevel, Device.IsCharging);
+      FChargeWatcher.CheckChargeStatus(Device.IsCharging);
     except
       on E: ELibUsb do
         FConfig.Refresh;
@@ -307,6 +326,11 @@ begin
     DoAutorun(aaAdd)
   else
     DoAutorun(aaRemove);
+end;
+
+procedure TfSettings.cbLogLastChargeChange(Sender: TObject);
+begin
+  AppSettings.LogLastCharge := TCheckBox(Sender).Checked;
 end;
 
 procedure TfSettings.RefreshDeviceList(Sender: TObject);

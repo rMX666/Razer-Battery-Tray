@@ -18,8 +18,8 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="2"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="8"/>
+      <RevisionNr Value="2"/>
+      <BuildNr Value="11"/>
       <Attributes pvaPreRelease="True"/>
       <StringTable FileDescription="Razer device battery tray icon" InternalName="Razbat" OriginalFilename="razbat.exe" ProductName="Razbat"/>
     </VersionInfo>
@@ -159,6 +159,11 @@
         <Filename Value="uutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uUtil"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ulogger.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uLogger"/>
       </Unit>
     </Units>
   </ProjectOptions>
